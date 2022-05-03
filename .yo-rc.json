@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "codeimpact",
+      "authorName": "Jan-Jaap Arends",
+      "authorEmail": "jj.arends@codeimpact.nl",
+      "authorUrl": "http://www.codeimpact.nl"
+    }
+  }
+}
