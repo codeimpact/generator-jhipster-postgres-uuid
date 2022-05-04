@@ -48,7 +48,7 @@ module.exports = class extends BaseGenerator {
                 'generator-jhipster-postgres-uuid',
                 'entity',
                 'post',
-                'entity',
+                'app',
                 'A JHipster module that generates uuids for postgres'
             );
         } catch (e) {
