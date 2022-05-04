@@ -1,5 +1,4 @@
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
-const chalk = require('chalk');
 const fs = require('fs');
 const glob = require('glob');
 const getUuid = require('uuid-by-string');
@@ -13,14 +12,6 @@ module.exports = {
 };
 
 function initVariables(generator) {
-    /**
-     * @todo:
-     * 1) check if we already have an uuid in the fake data + user / authority.
-     * 2) Users should have a uuid
-     * 4) change case function
-     * 5) remove unneeded dependencies.
-     * 6) check create new jdl
-     */
     generator.loadServerConfig(generator.jhipsterAppConfig);
 
     // read config from .yo-rc.json
@@ -80,22 +71,6 @@ function writeFiles(generator) {
     entities.forEach(entity => {
         convertComponents(generator, entity);
     });
-
-    registerToEntityPostHook(generator);
-}
-
-function registerToEntityPostHook(generator) {
-    try {
-        generator.registerModule(
-            'generator-jhipster-postgres-uuid',
-            'entity',
-            'post',
-            'entity',
-            'A JHipster module that generates uuids for postgres'
-        );
-    } catch (e) {
-        generator.log(`${chalk.red.bold('WARN!')} Could not register as a jhipster entity post creation hook...\n`, e);
-    }
 }
 
 function convertComponents(generator, entity) {
@@ -111,11 +86,11 @@ function convertComponents(generator, entity) {
 
     if (entityConfig) {
         const config = entityConfig.createProxy();
-        if (config.dto !== 'no') {
+        if (config.dto !== undefined && config.dto !== 'no') {
             convertDTO(generator, entity);
         }
 
-        if (config.service !== 'no') {
+        if (config.service !== undefined && config.service !== 'no') {
             const serviceImpl = config.service === 'serviceImpl';
             convertService(generator, entity, serviceImpl);
         }
