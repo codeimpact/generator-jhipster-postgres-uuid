@@ -304,7 +304,8 @@ function convertLiquibaseChangelog(generator, entity) {
     const file = glob.sync(`${generator.resourceDir}/config/liquibase/changelog/*entity_${entity}.xml`)[0];
     // eslint-disable-next-line no-template-curly-in-string
     generator.replaceContent(file, 'id" type="bigint"', 'id" type="${uuidType}"', true);
-    generator.replaceContent(file, 'id" type="numeric"', 'id" type="uuid"', true);
+    // eslint-disable-next-line no-template-curly-in-string
+    generator.replaceContent(file, 'id" type="numeric"', 'id" type="${uuidType}"', true);
 }
 
 /**
