@@ -23,8 +23,7 @@
   },
   "main": "generators/app/index.js",
   "files": [
-    "app",
-    "entity"
+    "generators"
   ],
   "scripts": {
     "lint": "eslint .",

@@ -174,19 +174,21 @@ function convertFakeData(generator, entity) {
         return;
     }
     const snakeEntityName = changeCase.snakeCase(entity);
-    const fakeDataFile = `${generator.resourceDir}/config/liquibase/fake-data/${snakeEntityName}.csv`;
-    const lineNumbers = [...Array(10).keys()];
+    const fakeDataFile = `${generator.resourceDir}config/liquibase/fake-data/${snakeEntityName}.csv`;
+    if (fs.existsSync(fakeDataFile)) {
+        const lineNumbers = [...Array(10).keys()];
 
-    const regExNeedles = [];
-    lineNumbers.forEach(lineNr => {
-        const id = lineNr + 1;
-        const entityUUID = getUuid(`${entity}${id}`);
-        regExNeedles.push({
-            regex: new RegExp(`^${id};`, 'gm'),
-            content: `${entityUUID};`
+        const regExNeedles = [];
+        lineNumbers.forEach(lineNr => {
+            const id = lineNr + 1;
+            const entityUUID = getUuid(`${entity}${id}`);
+            regExNeedles.push({
+                regex: new RegExp(`^${id};`, 'gm'),
+                content: `${entityUUID};`
+            });
         });
-    });
-    replaceRegexNeedles(generator, fakeDataFile, regExNeedles);
+        replaceRegexNeedles(generator, fakeDataFile, regExNeedles);
+    }
 }
 
 function convertUserData(generator) {
@@ -200,7 +202,7 @@ function convertUserData(generator) {
 }
 
 function convertLiquibaseChangelog(generator, entity) {
-    const file = glob.sync(`${generator.resourceDir}/config/liquibase/changelog/*entity_${entity}.xml`)[0];
+    const file = glob.sync(`${generator.resourceDir}config/liquibase/changelog/*entity_${entity}.xml`)[0];
     // eslint-disable-next-line no-template-curly-in-string
     generator.replaceContent(file, 'id" type="bigint"', 'id" type="${uuidType}"', true);
     // eslint-disable-next-line no-template-curly-in-string
@@ -219,7 +221,7 @@ function convertUserMapper(generator) {
 }
 
 function convertInitialChangelog(generator) {
-    const file = glob.sync(`${generator.resourceDir}/config/liquibase/changelog/*initial_schema.xml`)[0];
+    const file = glob.sync(`${generator.resourceDir}config/liquibase/changelog/*initial_schema.xml`)[0];
     // eslint-disable-next-line no-template-curly-in-string
     generator.replaceContent(file, 'id" type="bigint"', 'id" type="${uuidType}"', true);
     // eslint-disable-next-line no-template-curly-in-string
