@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-postgres-uuid",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Convert postgres Long id's to uuid's",
   "keywords": [
     "yeoman-generator",
@@ -23,7 +23,8 @@
   },
   "main": "generators/app/index.js",
   "files": [
-    "generators"
+    "app",
+    "entity"
   ],
   "scripts": {
     "lint": "eslint .",

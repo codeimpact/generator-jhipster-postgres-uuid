@@ -12,6 +12,7 @@ module.exports = class extends BaseGenerator {
                 if (!this.jhipsterAppConfig) {
                     this.error('"Can\'t·read·.yo-rc.json"');
                 }
+                files.initVariables(this);
             },
 
             displayLogo() {
@@ -41,14 +42,23 @@ module.exports = class extends BaseGenerator {
     }
 
     writing() {
-        files.writeFiles(this);
+        files.convertInitialChangelog(this);
+        files.convertUserMapper(this);
+        files.convertEntity(this, 'User');
+        files.convertRepository(this, 'User');
+        files.convertDTO(this, 'AdminUser');
+        files.convertDTO(this, 'User');
+        files.convertResource(this, 'User');
+        files.convertUserData(this);
+        files.convertAllEntities(this);
+
         this.addNpmDevDependency('generator-jhipster-postgres-uuid', packagejs.version);
         try {
             this.registerModule(
                 'generator-jhipster-postgres-uuid',
                 'entity',
                 'post',
-                'app',
+                'entity',
                 'A JHipster module that generates uuids for postgres'
             );
         } catch (e) {

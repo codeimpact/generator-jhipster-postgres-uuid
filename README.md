@@ -78,6 +78,26 @@ yarn global upgrade generator-jhipster-postgres-uuid
 yo jhipster-postgres-uuid
 ```
 
+## Running the module local for development
+
+During development of the module:
+
+1. Make a link for npm so that we can use it in the jhipster project
+
+```bash
+cd generator-jhipster-postgres-uuid
+npm link
+```
+
+2. Link the module to jhipster
+
+You could also use Yarn for this if you prefer (my-app is the folder of your jhipster application)
+
+```bash
+cd my-app
+npm link generator-jhipster-postgres-uuid
+```
+
 # License
 
 MIT © [Jan-Jaap Arends](http://www.codeimpact.nl)
